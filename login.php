@@ -22,7 +22,7 @@
 				// $_SESSION['email'] = $email;
 				// assuming you have a 'role' column in your user table
 				// $_SESSION['role'] = $row['role']; 
-				header('Location: ../drms/dashboard/dashboard.php');
+				header('Location: ../drms/dashboard/');
 				exit();
 			} else {
 				// password is incorrect, show error message

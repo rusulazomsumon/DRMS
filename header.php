@@ -22,7 +22,7 @@
             <a class="nav-link" href="#">All Branches</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Results</a>
+            <a class="nav-link" href="/drms/result.php">Results</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Courses</a>

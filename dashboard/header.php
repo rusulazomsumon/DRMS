@@ -1,7 +1,4 @@
-<?php 
-  include("../connection.php");
-	// include("../functions.php");
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,8 +29,8 @@
                     Student
                 </a>
                 <div class="dropdown-menu" aria-labelledby="studentDropdown">
-                    <a class="dropdown-item" href="../dashboard/add_student.php">Add Student</a>
-                    <a class="dropdown-item" href="../dashboard/">All Student</a>
+                    <a class="dropdown-item" href="../dashboard/student/add_student.php">Add Student</a>
+                    <a class="dropdown-item" href="../dashboard/student/all_student.php">All Student</a>
                     <a class="dropdown-item" href="#">Settings</a>
                 </div>
             </li>
@@ -55,14 +52,14 @@
       <!-- @@@@@@@@@@@@@@@@@@@Main Content@@@@@@@@@@@@@@@@ -->
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Job Listing</a>
+        <a class="navbar-brand" href="#">Dhit RMS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">Dashboard</a>
+              <a class="nav-link" href="#">Settings</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Result</a>
