@@ -17,7 +17,7 @@
                 echo "<td>" . $row['s_id'] . "</td>";
                 echo "<td><img src='/drms/dashboard/student/imgs/" . $row['picture'] . "' width='50' height='50'></td>";
                 echo "<td>" . $row['name'] . "</td>";
-                echo "<td>" . $row['reg_Id'] . "</td>";
+                echo "<td>" . $row['reg_id'] . "</td>";
                 echo "<td>" . $row['roll'] . "</td>";
                 echo "<td>" . $row['f_name'] . "</td>";
                 echo "<td>" . $row['m_name'] . "</td>";
@@ -26,8 +26,20 @@
                 echo "<td>" . $row['address'] . "</td>";
                 echo "<td>" . $row['branch_id'] . "</td>";
                 echo "<td><a href='edit_student.php?id=" . $row['s_id'] . "'>Edit</a></td>";
-                echo "<td><a href='update_student.php?id=" . $row['s_id'] . "'>Update</a></td>";
+                echo "<td><a href='disable_student.php?id=" . $row['s_id'] . "'>Disable</a></td>";
+                // delete button
                 echo "<td><a href='delete_student.php?id=" . $row['s_id'] . "'>Delete</a></td>";
+                ?>
+
+                <!-- <td>
+                  <form action="delete_student.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $row['s_id']; ?>">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this student?')">Delete</button>
+                  </form>
+                </td> -->
+
+
+                <?php
                 echo "</tr>";
             }
             echo "</table>";

@@ -55,7 +55,7 @@
                 VALUES ('$name', '$regId', '$roll', '$picture', '$fName', '$mName', '$email', '$phone', '$address', '$branchId')";
 
         if (mysqli_query($conn, $sql)) {
-            echo "New record created successfully";
+            echo "<script type='text/javascript'>alert('Student information updated successfully');window.location.href='all_student.php';</script>";
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
@@ -117,6 +117,10 @@
 			<div class="form-group">
 				<label for="address">Address:</label>
 				<textarea class="form-control" id="address" placeholder="Enter address" name="address" required></textarea>
+			</div>
+            <div class="form-group">
+				<label for="crs_id">Course ID:</label>
+				<input type="text" class="form-control" id="crs_id" placeholder="Enter Courses ID" name="crs_id" required>
 			</div>
 			<div class="form-group">
 				<label for="branch_id">Branch ID:</label>

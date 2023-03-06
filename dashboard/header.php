@@ -30,8 +30,8 @@
                     Student
                 </a>
                 <div class="dropdown-menu" aria-labelledby="studentDropdown">
-                    <a class="dropdown-item" href="../dashboard/student/add_student.php">Add Student</a>
-                    <a class="dropdown-item" href="../dashboard/student/all_student.php">All Student</a>
+                    <a class="dropdown-item" href="https://localhost/drms/dashboard/student/add_student.php">Add Student</a>
+                    <a class="dropdown-item" href="https://localhost/drms/dashboard/student/all_student.php">All Student</a>
                     <a class="dropdown-item" href="#">Settings</a>
                 </div>
             </li>
@@ -41,9 +41,9 @@
                     result
                 </a>
                 <div class="dropdown-menu" aria-labelledby="studentDropdown">
-                    <a class="dropdown-item" href="../dashboard/student/add_student.php">Add Result</a>
-                    <a class="dropdown-item" href="../dashboard/student/all_student.php">All Result</a>
-                    <a class="dropdown-item" href="../result.php">View Result</a>
+                    <a class="dropdown-item" href="https://localhost/drms/dashboard/student/add_student.php">Add Result</a>
+                    <a class="dropdown-item" href="https://localhost/drms/dashboard/student/all_student.php">All Result</a>
+                    <a class="dropdown-item" href="https://localhost/drms/result.php">View Result</a>
                     <a class="dropdown-item" href="#">Settings</a>
                 </div>
             </li>
@@ -76,7 +76,7 @@
               <a class="nav-link" href="#">Settings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../result.php">Result</a>
+              <a class="nav-link" href=https://localhost/drms/result.php">Result</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Users</a>
