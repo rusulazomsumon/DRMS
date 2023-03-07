@@ -14,9 +14,8 @@
     <title>Dashboard</title>
   </head>
   <body>
-    <h1>Welcome!</h1>
-    <p>This is your dashboard page.</p>
     
+  <!-- #######################Admin Dashbaord############################# -->
     
 
   </body>
