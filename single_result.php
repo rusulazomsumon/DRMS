@@ -1,209 +1,120 @@
-<?php
-    // connect to database
-    include('connection.php');
-    include('header.php');
-
-    // retrieve roll and registration numbers from URL
-    $roll = $_GET['roll'];
-    $reg_id = $_GET['reg_id'];
-
-    // select student info and their result from database
-    $query = "SELECT students.name, students.dob, students.picture, students.roll, students.address, results.marks_obtained, subjects.sub_id, subjects.name AS subject_name, courses.name AS course_name, branches.name AS branch_name
-	FROM students 
-	INNER JOIN results ON students.s_id = results.s_id 
-	INNER JOIN subjects ON results.sub_id = subjects.sub_id 
-	INNER JOIN courses ON students.crs_id = courses.crs_id
+<?php 
+  include("header.php");
+  include("connection.php");  
+  
+  $reg_id = $_GET['reg_id'];
+  
+  $sql = "SELECT students.name, students.dob, students.roll, students.picture, results.sub_id, results.marks_obtained, branches.name AS branch_name
+	FROM students
+	INNER JOIN results ON students.reg_id = results.reg_id
 	INNER JOIN branches ON students.branch_id = branches.branch_id
-	WHERE students.reg_id = '$reg_id' OR students.roll = '$roll'";
+	WHERE students.reg_id = '$reg_id';
+	";
+  
+  $result = mysqli_query($conn, $sql);
 
-    $result = mysqli_query($conn, $query);
-    if (!$result) {
-        echo "Error: " . mysqli_error($conn);
-        exit;
-    }
-	
-?>
+  if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+  
+  if (mysqli_num_rows($result) > 0) {
+	  // Display the result data
+	  while ($row = mysqli_fetch_assoc($result)) {
+        // Access the fields using $row['field_name']
+        $name = $row['name'];
+        $dob = $row['dob'];
+        $roll = $row['roll'];
+        $picture = $row['picture'];
+        $sub_id = $row['sub_id'];
+        $marks_obtained = $row['marks_obtained'];
+		$branch_name = $row['branch_name'];
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Single Result</title>
-</head>
-<body>
-			<?php
-				// loop through each row of data and display in table
-				while($row = mysqli_fetch_assoc($result)) {
-			?>
+        // @@@@@@@@@@@@@@@@@@@@@@@ResultArea(DownloadArea)@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        echo "<div class='container m-3 p-3' id='resultArea'>";
+			echo "<div class='card m-3'>";
+				// #################ResultHeaderContent#############
+				echo "<div class='row justify-content-center'>";
+						// logo area
+						echo "<div class='col-md-2' >";
+							echo "<img src='resourse\imgs\dhitlogo.jpg'  width='150' height='150' class='img-thumbnail m-1' class='img-fluid' alt='Logo'>";
+						echo "</div>";
+						// main content
+						echo "<div class='col-md-6 '>";
+							echo "<h3 class='mb-3 text-primary'>Dream Health and Information Technology</h3>";
+							echo "<p class='text-info'>web: www.dhitltd.com</p>";
+							echo "<p class='text-secondary'>Mohammadpur, Dhaka-1207, Bangladesh</p>";
+						echo "</div>";
+				echo "</div>";
+			echo "</div>";
 
-<head>
-	<style>
-		/* Style for the top section */
-		.top-section {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 20px;
-			border: 1px solid #ccc;
-			margin-bottom: 20px;
-		}
+			// #################RestMainContent#############
+			echo "<div class='row justify-content-center mt-5'>";
+				echo "<div class='col-md-8'>";
+					echo "<div class='card'>";
 
-		.top-section h4 {
-			margin: 0;
-		}
+						echo "<h4 class='text-success text-center p-3'>Final Result Card</h4>";
 
-		.top-section img {
-			max-height: 150px;
-			max-width: 150px;
-			border: 1px solid #ccc;
-			object-fit: contain;
-		}
+						// image
+						echo "<div class='card-body text-center'>";
+							echo "<img src='/drms/dashboard/student/imgs/" . $picture. "' width='150' height='150' class='img-thumbnail'>";
+						echo "</div>";
 
-		/* Style for the bottom section */
-		.bottom-section {
-			padding: 20px;
-			border: 1px solid #ccc;
-		}
+						// Student info col1
+						echo "<div class='container'>";
+							echo "<div class='row'>";
 
-		.bottom-section table {
-			width: 100%;
-			border-collapse: collapse;
-		}
+								echo "<div class='col-md-6'>";
+									echo "<div class='card-body text-left'>";
+										echo "<h4 class='card-title'>Name: $name</h4>";
+										echo "<p class='card-text'>Date of Birth: $dob</p>";
+										echo "<p class='card-text'>Brach: $branch_name</p>";
+									echo "</div>";
+								echo "</div>";
 
-		.bottom-section th,
-		.bottom-section td {
-			padding: 10px;
-			border: 1px solid #ccc;
-			text-align: center;
-		}
+								// Student info col2
+								echo "<div class='col-md-6'>";
+									echo "<div class='card-body text-left'>";
+										echo "<p class='card-text'>Roll Number: $roll</p>";
+										echo "<p class='card-text'>Subject ID: $sub_id</p>";
+										echo "<p class='card-text'>Marks Obtained: $marks_obtained</p>";
+									echo "</div>";
+								echo "</div>";
 
-		.bottom-section th {
-			background-color: #eee;
-		}
-	</style>
-</head>
-<body>
-	<div class="top-section">
-		<?php 
-				$result = mysqli_query($conn, $query);
+							echo "</div>";
+						echo "</div>";
 
-				if ($result) {
-					// Fetch the result as an associative array
-					$data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-					$pass = true;
-					$total_marks = 0;
-					$total_subjects = count($data);
-	
-					foreach ($data as $row) {
-						if ($row['marks_obtained'] < 33) {
-							$pass = false;
-							break;
-						}
-						$total_marks += $row['marks_obtained'];
-					}
-	
-					$percentage = $total_marks / ($total_subjects * 100) * 100;
-	
-					if ($pass) {
-						$result_status = "Passed";
-					} else {
-						$result_status = "Failed";
-					}
-	
-					if ($percentage >= 80) {
-						$grade = "A+";
-					} else if ($percentage >= 60) {
-						$grade = "A";
-					} else if ($percentage >= 50) {
-						$grade = "B+";
-					} else if ($percentage >= 40) {
-						$grade = "B";
-					} else if ($percentage >= 33) {
-						$grade = "C";
-					} else {
-						$grade = "F";
-					}
-	
-				} else {
-					// Display the MySQL error if the query fails
-					echo "Error: " . mysqli_error($conn);
-				}
-	
-			
-		?>
-		<div>
-			<h4>Course: <?php echo  $row['course_name'] ; ?></h4>
-			<h4>Center: <?php echo  $row['branch_name'] ; ?></h4>
-			<h4>Result: <?php echo $result_status; ?></h4> 
-			<h4>Grade: <?php echo $grade; ?></h4> 
-		</div> 
-		<div>
-			<h4>Roll No: <?php echo $data[0]['roll']; ?></h4>
-			<h4>Student Name: <?php echo "<td>" . $row['name'] . "</td>"; ?> </h4>
-			<h4>Address:<?php echo  $row['address'] ; ?></h4>
-			<h4>DOB: <?php echo date('j M Y', strtotime($row['dob'])); ?></h4>
-		</div>
-		<div>
-			<?php 
-				echo "<td><img src='/drms/dashboard/student/imgs/" . $row['picture'] . "' width='150' height='150'></td>"; 
-			// end of white loop
-			}
-
-			?>
-		</div>
-	</div>
-
-	<div class="bottom-section">
+					echo "</div>";
+				echo "</div>";
+			echo "</div>";
+		echo "</div>";
 		
-
-		<!-- HTML code for displaying the result in a table -->
-		<table>
-			<thead>
-				<tr>
-					<th>Serial</th>
-					<th>Subject Code</th>
-					<th>Subject Name</th>
-					<th>Grade</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php 
-				$serial = 1;
-				foreach ($data as $row) { ?>
-					<tr>
-						<td><?php echo $serial++; ?></td>
-						<td><?php echo $row['sub_id']; ?></td>
-						<td><?php echo $row['subject_name']; ?></td>
-						<td><?php 
-							$marks = $row['marks_obtained'];
-							if ($marks >= 80) {
-								echo "A+";
-							} elseif ($marks >= 70) {
-								echo "A";
-							} elseif ($marks >= 60) {
-								echo "A-";
-							} elseif ($marks >= 50) {
-								echo "B";
-							} elseif ($marks >= 40) {
-								echo "C";
-							} else {
-								echo "F";
-							}
-						?></td>
-					</tr>
-				<?php } ?>
-			</tbody>
-		</table>
+		// @@@@@@@@@@@@@@@@@DownloadButtons@@@@@@@@@@@@@@@@
+		echo "<div class='text-center'>";
+			echo "<button onclick='downloadScreenshot()' class='btn btn-success m-5'>Download Your Result</button>";
+		echo "</div>";
 
 
-	</div>
-</body>
-</html>
+		echo "<script src='https://html2canvas.hertzen.com/dist/html2canvas.min.js'></script>";
+
+		echo "<script>";
+			echo "function downloadScreenshot() {";
+				echo "    var contentDiv = document.getElementById('resultArea');";
+				echo "    html2canvas(contentDiv).then(function(canvas) {";
+				echo "        var link = document.createElement('a');";
+				echo "        link.href = canvas.toDataURL();";
+				echo "        link.download = '$name result_dhit_village_Doctor.png';";
+				echo "        link.click();";
+				echo "    });";
+			echo "}";
+		echo "</script>";
 
 
-<?php
-
-// close database connection
-mysqli_close($conn);
-include('footer.php');
-
+    }
+  } else {
+	  echo "No results found.";
+  }
+  
+  mysqli_close($conn);
+  
+  include("footer.php");
 ?>
