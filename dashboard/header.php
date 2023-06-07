@@ -41,8 +41,8 @@
                     result
                 </a>
                 <div class="dropdown-menu" aria-labelledby="studentDropdown">
-                    <a class="dropdown-item" href="https://localhost/drms/dashboard/student/add_student.php">Add Result</a>
-                    <a class="dropdown-item" href="https://localhost/drms/dashboard/student/all_student.php">All Result</a>
+                    <a class="dropdown-item" href="https://localhost/drms/dashboard/result/add_result.php">Add Result</a>
+                    <a class="dropdown-item" href="https://localhost/drms/dashboard/result/update_result.php">Edit Result</a>
                     <a class="dropdown-item" href="https://localhost/drms/result.php">View Result</a>
                     <a class="dropdown-item" href="#">Settings</a>
                 </div>

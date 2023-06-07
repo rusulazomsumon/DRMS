@@ -4,10 +4,11 @@
   
   $reg_id = $_GET['reg_id'];
   
-  $sql = "SELECT students.name, students.dob, students.roll, students.picture, results.sub_id, results.marks_obtained, branches.name AS branch_name
+  $sql = "SELECT students.name, students.dob, students.sex, students.f_name, students.m_name, students.reg_id, students.roll, students.address, students.picture, grade.grade, grade.result, courses.name AS course, branches.name AS branch_name
 	FROM students
-	INNER JOIN results ON students.reg_id = results.reg_id
+	INNER JOIN grade ON students.reg_id = grade.reg_id
 	INNER JOIN branches ON students.branch_id = branches.branch_id
+	INNER JOIN courses ON students.crs_id = courses.crs_id
 	WHERE students.reg_id = '$reg_id';
 	";
   
@@ -23,10 +24,16 @@
         // Access the fields using $row['field_name']
         $name = $row['name'];
         $dob = $row['dob'];
-        $roll = $row['roll'];
+		$sex = $row['sex'];
+		$f_name = $row['f_name'];
+		$m_name = $row['m_name'];
+		$reg_id = $row['reg_id'];
+		$roll = $row['roll'];
+		$address = $row['address'];
+		$course = $row['course'];
+		$result = $row['result'];
         $picture = $row['picture'];
-        $sub_id = $row['sub_id'];
-        $marks_obtained = $row['marks_obtained'];
+        $grade = $row['grade'];
 		$branch_name = $row['branch_name'];
 
         // @@@@@@@@@@@@@@@@@@@@@@@ResultArea(DownloadArea)@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -65,18 +72,24 @@
 
 								echo "<div class='col-md-6'>";
 									echo "<div class='card-body text-left'>";
-										echo "<h4 class='card-title'>Name: $name</h4>";
-										echo "<p class='card-text'>Date of Birth: $dob</p>";
-										echo "<p class='card-text'>Brach: $branch_name</p>";
+										echo "<h4 class='card-title'><strong>Name:</strong> $name</h4>";
+										echo "<p class='card-text'><strong>Father Name:</strong> $f_name</p>";
+										echo "<p class='card-text'><strong>Mother Name:</strong> $m_name</p>";
+										echo "<p class='card-text'><strong>Sex:</strong> $sex</p>";
+										echo "<p class='card-text'><strong>Address: </strong>$address</p>";
+										echo "<p class='card-text'><strong>Date of Birth:</strong> $dob</p>";
 									echo "</div>";
 								echo "</div>";
 
 								// Student info col2
 								echo "<div class='col-md-6'>";
 									echo "<div class='card-body text-left'>";
-										echo "<p class='card-text'>Roll Number: $roll</p>";
-										echo "<p class='card-text'>Subject ID: $sub_id</p>";
-										echo "<p class='card-text'>Marks Obtained: $marks_obtained</p>";
+										echo "<p class='card-text'><strong>Training Center:</strong> $branch_name</p>";
+										echo "<p class='card-text'><strong>Registration No:</strong> $reg_id</p>";
+										echo "<p class='card-text'><strong>Roll Number:</strong> $roll</p>";
+										echo "<p class='card-text'><strong>Course:</strong> $course</p>";
+										echo "<p class='card-text'><strong>Result:</strong> $result</p>";
+										echo "<p class='card-text'><strong>Grade:</strong> $grade</p>";
 									echo "</div>";
 								echo "</div>";
 
