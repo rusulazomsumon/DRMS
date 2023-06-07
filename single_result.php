@@ -31,7 +31,7 @@
 		$roll = $row['roll'];
 		$address = $row['address'];
 		$course = $row['course'];
-		$result = $row['result'];
+		$grade_result = $row['result']; // Use a different variable name here, e.g., $grade_result
         $picture = $row['picture'];
         $grade = $row['grade'];
 		$branch_name = $row['branch_name'];
@@ -88,7 +88,7 @@
 										echo "<p class='card-text'><strong>Registration No:</strong> $reg_id</p>";
 										echo "<p class='card-text'><strong>Roll Number:</strong> $roll</p>";
 										echo "<p class='card-text'><strong>Course:</strong> $course</p>";
-										echo "<p class='card-text'><strong>Result:</strong> $result</p>";
+										echo "<p class='card-text'><strong>Result:</strong> <span class='text-success'>$grade_result</span></p>"; // Use the new variable name here
 										echo "<p class='card-text'><strong>Grade:</strong> $grade</p>";
 									echo "</div>";
 								echo "</div>";
@@ -120,9 +120,7 @@
 				echo "    });";
 			echo "}";
 		echo "</script>";
-
-
-    }
+	  }
   } else {
 	  echo "No results found.";
   }

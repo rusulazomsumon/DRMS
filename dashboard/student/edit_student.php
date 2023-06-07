@@ -5,8 +5,9 @@
   // Check if form is submitted
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
-    $s_id = $_POST["s_id"];
+    $id = $_POST["id"];
     $name = $_POST["name"];
+    $sex = $_POST["sex"];
     $dob = $_POST["dob"];
     $reg_id = $_POST["reg_id"];
     $roll = $_POST["roll"];
@@ -42,7 +43,7 @@
     }
     
     // Update student information in database
-    $query = "UPDATE students SET name='$name', dob='$dob', reg_id='$reg_id', roll='$roll', picture='$picture', f_name='$f_name', m_name='$m_name', email='$email', phone='$phone', address='$address', crs_id='$crs_id', branch_id='$branch_id' WHERE s_id=$s_id";
+    $query = "UPDATE students SET name='$name', sex='$sex', dob='$dob', reg_id='$reg_id', roll='$roll', picture='$picture', f_name='$f_name', m_name='$m_name', email='$email', phone='$phone', address='$address', crs_id='$crs_id', branch_id='$branch_id' WHERE id=$id";
     $result = mysqli_query($conn, $query);
   
     if ($result) {
@@ -56,8 +57,8 @@
   // Check if s_id is provided in URL
   if (isset($_GET["id"])) {
       // Retrieve student information from database
-      $s_id = $_GET["id"];
-      $query = "SELECT * FROM students WHERE s_id=$s_id";
+      $id = $_GET["id"];
+      $query = "SELECT * FROM students WHERE id=$id";
       $result = mysqli_query($conn, $query);
   
       if ($result) {
@@ -70,8 +71,8 @@
   mysqli_close($conn);
   ?>
   
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
-        <input type="hidden" name="s_id" value="<?php echo $row['s_id'];?>">
+    <form class="m-5"  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo $row['id'];?>">
         <div class="form-group">
         <label for="picture">Picture:</label>
         <?php if($row['picture']) { ?>
@@ -90,6 +91,16 @@
             <label for="dob">DOB:</label>
             <input type="date" class="form-control" id="dob" name="dob" placeholder="<?php echo $row['dob'];?>" value="<?php echo $row['dob']; ?>" required>
         </div>
+
+        <div class="form-group">
+            <label for="sex">Sex:</label>
+            <select class="form-control" id="sex" name="sex" required>
+                <option value="Male" <?php if ($row['sex'] == 'Male') echo 'selected'; ?>>Male</option>
+                <option value="Female" <?php if ($row['sex'] == 'Female') echo 'selected'; ?>>Female</option>
+                <option value="Others" <?php if ($row['sex'] == 'Others') echo 'selected'; ?>>Others</option>
+            </select>
+        </div>
+
         
         <div class="form-group">
             <label for="reg_id">Reg ID:</label>

@@ -4,8 +4,11 @@
     // Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
+		// name 	dob 	sex 	reg_id 	roll 	picture 	f_name 	m_name 	email 	phone 	address 	crs_id 	branch_id 
         // Get the form data
         $name = $_POST['name'];
+        $dob = $_POST['dob'];
+        $sex = $_POST['sex'];
         $regId = $_POST['reg_id'];
         $roll = $_POST['roll'];
 
@@ -16,6 +19,7 @@
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $address = $_POST['address'];
+        $crs_id = $_POST['crs_id'];
         $branchId = $_POST['branch_id'];
 
         // Upload the picture file
@@ -49,10 +53,11 @@
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        // s_id 	name 	reg_Id 	roll 	picture 	f_name 	m_name 	email 	phone 	address 	branch_id 	
-        // Insert the data into the database
-        $sql = "INSERT INTO students (name, reg_Id, roll, picture, f_name, m_name, email, phone, address, branch_id) 
-                VALUES ('$name', '$regId', '$roll', '$picture', '$fName', '$mName', '$email', '$phone', '$address', '$branchId')";
+
+        // name 	dob 	sex 	reg_id 	roll 	picture 	f_name 	m_name 	email 	phone 	address 	crs_id 	branch_id        
+         // Insert the data into the database
+        $sql = "INSERT INTO students (name, dob, sex, reg_Id, roll, picture, f_name, m_name, email, phone, address, crs_id, branch_id) 
+                VALUES ('$name', '$dob', '$sex', '$regId', '$roll', '$picture', '$fName', '$mName', '$email', '$phone', '$address', '$crs_id', '$branchId')";
 
         if (mysqli_query($conn, $sql)) {
             echo "<script type='text/javascript'>alert('Student information updated successfully');window.location.href='all_student.php';</script>";
@@ -79,14 +84,34 @@
 </head>
 <body>
 
+    <!-- name 	dob 	sex 	reg_id 	roll 	picture 	f_name 	m_name 	email 	phone 	address 	crs_id 	branch_id  -->
 	<div class="container">
 		<h2>Register New Student</h2>
 		<form action="add_student.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+				<label for="picture">Picture:</label>
+				<input type="file" class="form-control-file" id="picture" name="picture" required>
+			</div>
 			<div class="form-group">
 				<label for="name">Name:</label>
 				<input type="text" class="form-control" id="name" placeholder="Enter name" name="name" required>
 			</div>
+            <div class="form-group">
+				<label for="name">Date Of Birth:</label>
+				<input type="date" class="form-control" id="dob" placeholder="Enter DOB" name="dob" required>
+			</div>
+
 			<div class="form-group">
+                <label for="sex">Sex:</label>
+                <select class="form-control" id="sex" name="sex" required>
+                    <option value="">--select--</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <div class="form-group">
 				<label for="reg_id">Registration ID:</label>
 				<input type="text" class="form-control" id="reg_id" placeholder="Enter registration ID" name="reg_id" required>
 			</div>
@@ -94,10 +119,7 @@
 				<label for="roll">Roll:</label>
 				<input type="text" class="form-control" id="roll" placeholder="Enter roll" name="roll" required>
 			</div>
-			<div class="form-group">
-				<label for="picture">Picture:</label>
-				<input type="file" class="form-control-file" id="picture" name="picture" required>
-			</div>
+			
 			<div class="form-group">
 				<label for="f_name">Father's Name:</label>
 				<input type="text" class="form-control" id="f_name" placeholder="Enter father's name" name="f_name" required>

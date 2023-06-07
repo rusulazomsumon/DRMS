@@ -19,9 +19,9 @@
 			if (password_verify($password, $hash)) {
 				// password is correct, set session variables and redirect to dashboard
 
-				// $_SESSION['email'] = $email;
+				$_SESSION['email'] = $email;
 				// assuming you have a 'role' column in your user table
-				// $_SESSION['role'] = $row['role']; 
+				$_SESSION['role'] = $row['role']; 
 				header('Location: ../drms/dashboard/');
 				exit();
 			} else {
