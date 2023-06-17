@@ -16,14 +16,14 @@
 <body>
   <!-- Navigation bar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">DHIT</a>
+    <div class="container text-center">
+      <h1 class="navbar-brand  " href="#">Dream Health and Information Technology - Dhit (Online Result) </h1>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#">All Branches</a>
           </li>
           <li class="nav-item">
@@ -31,13 +31,13 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Courses</a>
-          </li>
+          </li> 
           <li class="nav-item">
             <a class="nav-link" href="#">Student Registration</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/drms/login.php">Log-in</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
